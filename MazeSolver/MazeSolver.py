@@ -19,39 +19,47 @@ matrix = np.array([[black, black, black, black, black, black, black, black],
           [black, black, black, black, black, black, black, black]])
 
 matrix.flatten()
-matrixf = matrix.flatten()
-print(matrixf)
+Flat = matrix.flatten()
 
-matrixfcopy = []
+Flatcopy = []
 matrixcopy = []
 
 for i in range(64):
-    if matrixf[i] == "black":
-        matrixfcopy.append(blackcolor)
+    if Flat[i] == "black":
+        Flatcopy.append(blackcolor)
     
     else:
-        matrixfcopy.append(whitecolor)
+        Flatcopy.append(whitecolor)
 
 for i in range(6):
-    matrixfcopy[i+17] = blackcolor
+    Flatcopy[i+17] = blackcolor
 
 for i in range(6):
-    matrixfcopy[i+33] = blackcolor
+    Flatcopy[i+33] = blackcolor
 
 randomplace = random.randint(17, 22)
-matrixfcopy[randomplace] = whitecolor
+Flatcopy[randomplace] = whitecolor
 
 randomplace2 = random.randint(33, 38)
-matrixfcopy[randomplace2] = whitecolor
+Flatcopy[randomplace2] = whitecolor
 
 for i in range(1):
     randomplace3 = random.randint(41, 46)
-    matrixfcopy[randomplace3] = blackcolor
+    Flatcopy[randomplace3] = blackcolor
 
 for i in range(3):
     randomplace4 = random.randint(49, 54)
-    matrixfcopy[randomplace4] = blackcolor
+    Flatcopy[randomplace4] = blackcolor
 
-matrixf = matrixfcopy
+Flat = Flatcopy
 
-sense.set_pixels(matrixfcopy)
+matrix = [Flat[i:i+8] for i in range(0, len(Flat), 8)]
+for i in range(8):
+    for j in range(8):
+        if matrix[i][j] == [0, 0, 0]:
+            matrix[i][j] = black
+        else:
+            matrix[i][j] = white
+
+print(matrix)
+sense.set_pixels(Flatcopy)
