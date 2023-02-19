@@ -38,8 +38,19 @@ for i in range(6):
 for i in range(6):
     matrixfcopy[i+33] = blackcolor
 
-for i in range(1, 7):
-    matrixcopy.append([i][random.randint(1, 7), whitecolor])
+randomplace = random.randint(17, 22)
+matrixfcopy[randomplace] = whitecolor
+
+randomplace2 = random.randint(33, 38)
+matrixfcopy[randomplace2] = whitecolor
+
+for i in range(1):
+    randomplace3 = random.randint(41, 46)
+    matrixfcopy[randomplace3] = blackcolor
+
+for i in range(3):
+    randomplace4 = random.randint(49, 54)
+    matrixfcopy[randomplace4] = blackcolor
 
 matrixf = matrixfcopy
 
