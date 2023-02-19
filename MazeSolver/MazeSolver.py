@@ -1,26 +1,46 @@
 from sense_hat import SenseHat
 sense = SenseHat()
 import random
+import numpy as np
 
 blue = [0, 0, 255]
-black = [0, 0, 0]
-white = [255, 255, 255]
+black = "black"
+white = "white"
+blackcolor = [0, 0, 0]
+whitecolor = [255, 255, 255]
 
-matrix = [black, black, black, black, black, black, black, black,
-          black, white, white, white, white, white, white, black,
-          black, white, white, white, white, white, white, black,
-          black, white, white, white, white, white, white, black,          
-          black, white, white, white, white, white, white, black,
-          black, white, white, white, white, white, white, black,
-          black, white, white, white, white, white, white, black,
-          black, black, black, black, black, black, black, black]
+matrix = np.array([[black, black, black, black, black, black, black, black],
+          [black, white, white, white, white, white, white, black],
+          [black, black, black, black, black, black, black, black],
+          [black, white, white, white, white, white, white, black],          
+          [black, black, black, black, black, black, black, black],
+          [black, white, white, white, white, white, white, black],
+          [black, white, white, white, white, white, white, black],
+          [black, black, black, black, black, black, black, black]])
 
-for i in range(5):
-    random_value = random.randint(1, 2)
-    if random_value == 1:
-        matrix[i+17] = black
+matrix.flatten()
+matrixf = matrix.flatten()
+print(matrixf)
 
-    if random_value == 2:
-        matrix[i+17] = white
+matrixfcopy = []
+matrixcopy = []
 
-sense.set_pixels(matrix)
+for i in range(64):
+    if matrixf[i] == "black":
+        matrixfcopy.append(blackcolor)
+    
+    else:
+        matrixfcopy.append(whitecolor)
+
+for i in range(6):
+    matrixfcopy[i+17] = blackcolor
+
+for i in range(6):
+    matrixfcopy[i+33] = blackcolor
+
+for i in range(1, 7):
+    matrixcopy.append([i][random.randint(1, 7), whitecolor])
+
+matrixf = matrixfcopy
+
+sense.set_pixels(matrixfcopy)
