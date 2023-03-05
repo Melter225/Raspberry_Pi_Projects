@@ -11,6 +11,7 @@ blackcolor = [0, 0, 0]
 whitecolor = [255, 255, 255]
 matrix = np.array([[]])
 
+
 def generate():
     global matrix
     matrix = np.array([[black, black, black, black, black, black, black, black],
@@ -22,7 +23,6 @@ def generate():
             [black, white, white, white, white, white, white, black],
             [black, black, black, black, black, black, black, black]])
 
-    matrix.flatten()
     Flat = matrix.flatten()
 
     Flatcopy = []
@@ -91,6 +91,21 @@ def pathFind():
                 dfs(row, column)
                 continue
 
-    print(matrix)
+    PixelList = [item for sublist in matrix for item in sublist]
+    PixelListCopy = []
+
+    for i in PixelList:
+        if i == "white":
+            PixelListCopy.append(whitecolor)
+
+        if i == "black":
+            PixelListCopy.append(blackcolor)
+
+        if i == "blue":
+            PixelListCopy.append(blue)
+
+    print(PixelListCopy)
+
+    sense.set_pixels(PixelListCopy)
 
 pathFind()
