@@ -1,4 +1,4 @@
-#Error 1: Ending piece can be closed off
+#Error 1: Ending piece can be closed off (you can only reach diagonally)
 #Error 2: DFS seems random maybe change current position to cyan
 from sense_hat import SenseHat
 sense = SenseHat()
@@ -84,7 +84,7 @@ def pathFind():
     global matrix
     @lru_cache(maxsize=None)
     def dfs(r, c):
-        if matrix[r][c] == "black" or r < 0 or c < 0 or r > 7 or c > 7 or matrix[r][c] == "blue" or matrix[r][c] == red or matrix[r][c] == blackcolor or matrix[r][c] == blue:
+        if matrix[r][c] == "black" or r < 0 or c < 0 or r > 7 or c > 7 or matrix[r][c] == "blue" or matrix[r][c] == blackcolor or matrix[r][c] == blue:
             return
 
         matrix[r][c] = "blue"
