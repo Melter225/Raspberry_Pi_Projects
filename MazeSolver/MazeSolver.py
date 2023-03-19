@@ -37,6 +37,7 @@ def generate():
             Flatcopy.append(whitecolor)
 
         else:
+            print("do we get here???")
             Flatcopy.append(red)
 
     for i in range(6):
@@ -59,7 +60,8 @@ def generate():
 
     for i in range(3):
         randomplace4 = random.randint(49, 54)
-        Flatcopy[randomplace4] = blackcolor
+        if Flatcopy[randomplace4] != red:
+            Flatcopy[randomplace4] = blackcolor
 
     #Flat = Flattened Edited Matrix
     Flat = Flatcopy
