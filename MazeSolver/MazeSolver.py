@@ -3,6 +3,7 @@ sense = SenseHat()
 import random
 import numpy as np
 from functools import lru_cache
+from time import sleep
 
 blue = [0, 0, 255]
 black = "black"
@@ -10,17 +11,17 @@ white = "white"
 blackcolor = [0, 0, 0]
 whitecolor = [255, 255, 255]
 matrix = np.array([[]])
-
+red = [255, 0, 0]
 
 def generate():
     global matrix
     matrix = np.array([[black, black, black, black, black, black, black, black],
-            [black, white, white, white, white, white, white, black],
-            [black, black, black, black, black, black, black, black],
-            [black, white, white, white, white, white, white, black],          
+            [black, red, white, white, white, white, white, black],
             [black, black, black, black, black, black, black, black],
             [black, white, white, white, white, white, white, black],
+            [black, black, black, black, black, black, black, black],
             [black, white, white, white, white, white, white, black],
+            [black, white, white, white, white, white, red, black],
             [black, black, black, black, black, black, black, black]])
 
     Flat = matrix.flatten()
@@ -30,9 +31,12 @@ def generate():
     for i in range(64):
         if Flat[i] == "black":
             Flatcopy.append(blackcolor)
-        
-        else:
+
+        elif Flat[i] == "white":
             Flatcopy.append(whitecolor)
+
+        else:
+            Flatcopy.append(red)
 
     for i in range(6):
         Flatcopy[i+17] = blackcolor
@@ -56,6 +60,7 @@ def generate():
         randomplace4 = random.randint(49, 54)
         Flatcopy[randomplace4] = blackcolor
 
+    #Flat = Flattened Edited Matrix
     Flat = Flatcopy
 
     matrix = [Flat[i:i+8] for i in range(0, len(Flat), 8)]
@@ -63,7 +68,7 @@ def generate():
         for j in range(8):
             if matrix[i][j] == [0, 0, 0]:
                 matrix[i][j] = black
-            else:
+            elif matrix[i][j] == [255, 255, 255]:
                 matrix[i][j] = white
 
     sense.set_pixels(Flatcopy)
@@ -76,9 +81,10 @@ def pathFind():
     def dfs(r, c):
         if matrix[r][c] == "black" or r < 0 or c < 0 or r > 7 or c > 7 or matrix[r][c] == "blue":
             return
-        
+
         matrix[r][c] = "blue"
-        print(matrix[r][c])
+        sense.set_pixel(r, c, blue)
+        sleep(0.5)
 
         dfs(r+1, c)
         dfs(r-1, c)
@@ -90,22 +96,4 @@ def pathFind():
             if matrix[row][column] == "white":
                 dfs(row, column)
                 continue
-
-    PixelList = [item for sublist in matrix for item in sublist]
-    PixelListCopy = []
-
-    for i in PixelList:
-        if i == "white":
-            PixelListCopy.append(whitecolor)
-
-        if i == "black":
-            PixelListCopy.append(blackcolor)
-
-        if i == "blue":
-            PixelListCopy.append(blue)
-
-    print(PixelListCopy)
-
-    sense.set_pixels(PixelListCopy)
-
 pathFind()
