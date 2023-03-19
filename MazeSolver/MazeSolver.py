@@ -1,3 +1,4 @@
+#Error 2: ending point is faulty and sometimes does not show up
 from sense_hat import SenseHat
 sense = SenseHat()
 import random
@@ -79,11 +80,11 @@ def pathFind():
     global matrix
     @lru_cache(maxsize=None)
     def dfs(r, c):
-        if matrix[r][c] == "black" or r < 0 or c < 0 or r > 7 or c > 7 or matrix[r][c] == "blue":
+        if matrix[r][c] == "black" or r < 0 or c < 0 or r > 7 or c > 7 or matrix[r][c] == "blue" or matrix[r][c] == red or matrix[r][c] == blackcolor or matrix[r][c] == blue:
             return
 
         matrix[r][c] = "blue"
-        sense.set_pixel(r, c, blue)
+        sense.set_pixel(c, r, blue)
         sleep(0.5)
 
         dfs(r+1, c)
@@ -95,5 +96,5 @@ def pathFind():
         for column in range(len(matrix[0])):
             if matrix[row][column] == "white":
                 dfs(row, column)
-                continue
+                break
 pathFind()
