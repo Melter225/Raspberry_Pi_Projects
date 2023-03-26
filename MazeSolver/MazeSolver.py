@@ -1,5 +1,5 @@
 #Error 1: Ending piece can be closed off (you can only reach diagonally)
-#Error 2: DFS seems random maybe change current position to cyan
+#Error 2: DFS seems random maybe at the end show actual path in green
 from sense_hat import SenseHat
 sense = SenseHat()
 import random
@@ -8,12 +8,15 @@ from functools import lru_cache
 from time import sleep
 
 blue = [0, 0, 255]
+cyan = [90, 180, 255]
 black = "black"
 white = "white"
 blackcolor = [0, 0, 0]
 whitecolor = [255, 255, 255]
 matrix = np.array([[]])
 red = [255, 0, 0]
+
+history = []
 
 def generate():
     global matrix
@@ -88,7 +91,10 @@ def pathFind():
             return
 
         matrix[r][c] = "blue"
-        sense.set_pixel(c, r, blue)
+        sense.set_pixel(c, r, cyan)
+        history.append([c, r])
+        if len(history) > 1:
+            sense.set_pixel(history[-2][0], history[-2][1], blue)
         sleep(0.5)
 
         dfs(r+1, c)
