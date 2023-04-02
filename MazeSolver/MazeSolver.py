@@ -17,6 +17,11 @@ matrix = np.array([[]])
 red = [255, 0, 0]
 
 history = []
+path_costs = {"Up": 1,
+              "Down": 1,
+              "Right": 1,
+              "Left": 1}
+#key = path, value = cost; maps key to path cost
 
 def generate():
     global matrix
